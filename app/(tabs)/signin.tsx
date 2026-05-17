@@ -113,6 +113,7 @@ export default function Signin() {
             setForm((prev) => ({ ...prev, email: text }));
           }}
           placeholder="Enter your email"
+          placeholderTextColor="#9aa0a6"
           autoComplete="email"
           />
           <TextInput
@@ -122,6 +123,7 @@ export default function Signin() {
             setForm((prev) => ({ ...prev, password: text }));
           }}
           placeholder="Enter your password"
+          placeholderTextColor="#9aa0a6"
           secureTextEntry={true}
           autoComplete="password"
           />
