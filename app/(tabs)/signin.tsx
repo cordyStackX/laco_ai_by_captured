@@ -18,6 +18,8 @@ export default function Signin() {
   const [showWebView, setShowWebView] = useState(false);
   const [loading, setLoading] = useState(false);
   const [registerUrl, setRegisterUrl] = useState("");
+  const [webViewAuthToken, setWebViewAuthToken] = useState<string | null>(null);
+  const [webViewNeedsAuth, setWebViewNeedsAuth] = useState(false);
 
   useEffect(() => {
     async function check() {
@@ -59,6 +61,8 @@ export default function Signin() {
     const check_code = await Fetch_to(`${registered_link.public_domain}${api_link.checkcode}`, { email: form.email });
     if (check_code.success) {
       setShowWebView(true);
+      setWebViewNeedsAuth(true);
+      setWebViewAuthToken(await SecureStore.getItemAsync("auth_token"));
       setRegisterUrl(`${registered_link.public_domain}${registered_link.auth}${form.email}`);
     } else {
       setStatus(true);
@@ -97,6 +101,10 @@ export default function Signin() {
       
     }
   };
+
+  const webViewSource = webViewNeedsAuth && webViewAuthToken
+    ? { uri: registerUrl, headers: { Authorization: `Bearer ${webViewAuthToken}` } }
+    : { uri: registerUrl };
 
   return (
     
@@ -155,6 +163,8 @@ export default function Signin() {
       </View>
       <Pressable onPress={() => {
         setShowWebView(true);
+        setWebViewNeedsAuth(false);
+        setWebViewAuthToken(null);
         setRegisterUrl(`${registered_link.public_domain}${registered_link.register}`);
       }}>
         <Text style={styles.registerLink}>Register</Text>
@@ -167,12 +177,18 @@ export default function Signin() {
       >
         <View style={styles.webViewContainer}>
           <View style={styles.webViewHeader}>
-            <Pressable onPress={() => setShowWebView(false)}>
+            <Pressable onPress={() => {
+              Alert.alert("Close", "Are you sure you want to exit?", [
+                  { text: "Cancel", style: "cancel" },
+                  { text: "Close", style: "destructive", onPress: () => setShowWebView(false) }
+              ]);
+              setLoading(false);
+            }}>
               <Text style={styles.webViewClose}>Close</Text>
             </Pressable>
           </View>
           <WebView
-            source={{ uri: registerUrl }}
+            source={webViewSource}
             onMessage={handleWebViewMessage}
           />
         </View>

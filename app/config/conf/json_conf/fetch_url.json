@@ -6,5 +6,6 @@
 		"auth" : "/services/jwt/auth",
 		"deauth" : "/services/jwt/deauth",
 		"verify" : "/services/jwt/verify"
-	}
+	},
+	"lbc_image_upload" : "/services/supabase/storage/lbc_image_upload"
 }

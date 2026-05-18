@@ -1,5 +1,6 @@
 {
     "public_domain" : "https://lccb-ai-2.vercel.app",
     "register" : "/auth/register?mobile=true",
-    "auth" : "/auth/confirm-email-signin?mobile="
+    "auth" : "/auth/confirm-email-signin?mobile=",
+    "chat" : "/chat?mobile=true"
 }
