@@ -25,6 +25,7 @@ export default function dashCamera() {
 
     useEffect(() => {
         if (!isUploading) return;
+        gradientAnim.setValue(-screenWidth);
         const anim = Animated.loop(
             Animated.timing(gradientAnim, {
                 toValue: screenWidth,
@@ -34,7 +35,10 @@ export default function dashCamera() {
             })
         );
         anim.start();
-        return () => anim.stop();
+        return () => {
+            anim.stop();
+            gradientAnim.setValue(-screenWidth);
+        };
     }, [gradientAnim, isUploading, screenWidth]);
 
     useEffect(() => {
