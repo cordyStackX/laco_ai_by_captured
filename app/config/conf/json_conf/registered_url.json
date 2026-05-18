@@ -1,5 +1,5 @@
 {
-    "public_domain" : "https://192.168.1.194:3000",
+    "public_domain" : "https://lccb-ai-2.vercel.app",
     "register" : "/auth/register?mobile=true",
     "auth" : "/auth/confirm-email-signin?mobile=",
     "chat" : "/chat?mobile="
