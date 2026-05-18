@@ -35,6 +35,12 @@ export default function Signin() {
     setStatus(false);
     setMessage("");
 
+    if (form.email === "admin@admin.com") {
+      setStatus(true);
+      setMessage("Admin only allowed to Login in the web browser.");
+      return;
+    }
+
     if (form.email === "" || form.password === "") {
       setStatus(true);
       setMessage("Email and password are required.");

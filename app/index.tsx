@@ -4,14 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 
 const imageAssets = [
-  require("../assets/images/android-icon-background.png"),
-  require("../assets/images/android-icon-foreground.png"),
-  require("../assets/images/android-icon-monochrome.png"),
   require("../assets/images/favicon.png"),
   require("../assets/images/icon.png"),
   require("../assets/images/logo3.png"),
-  require("../assets/images/partial-react-logo.png"),
-  require("../assets/images/react-logo.png"),
   require("../assets/images/splash-icon.png")
 ];
 

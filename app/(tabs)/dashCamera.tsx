@@ -64,7 +64,7 @@ export default function dashCamera() {
     const handleOpenChat = async () => {
         if (isUploading) return;
         const token = await SecureStore.getItemAsync("auth_token");
-        const chatUrl = `${registered_link.public_domain}${registered_link.chat}`;
+        const chatUrl = `${registered_link.public_domain}${registered_link.chat}open-chat`;
         setWebViewAuthToken(token ?? null);
         setRegisterUrl(chatUrl);
         setShowWebView(true);
@@ -103,7 +103,7 @@ export default function dashCamera() {
                 return;
             }
             const token = await SecureStore.getItemAsync("auth_token");
-            const chatUrl = `${registered_link.public_domain}${registered_link.chat}`;
+            const chatUrl = `${registered_link.public_domain}${registered_link.chat}true`;
             setWebViewAuthToken(token ?? null);
             setRegisterUrl(chatUrl);
             setShowWebView(true);
