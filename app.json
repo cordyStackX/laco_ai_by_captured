@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "Laco By Capture",
-    "slug": "Laco-By-Capture",
+    "slug": "laco-by-capture",
     "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo3.png",
-    "scheme": "lacoaibycaptured",
+    "scheme": "lacobycaptured",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -18,7 +18,10 @@
       "permissions": [
         "CAMERA"
       ],
-      
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/logo3.png",
+        "backgroundColor": "#FFFFFF"
+      },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
@@ -31,19 +34,23 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/logo3.png",
           "imageWidth": 100,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
+          "resizeMode": "cover",
+          "backgroundColor": "transparent"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c9ef70eb-156f-4bb1-8da0-722be0cdabd0"
+      }
+    },
+    "owner": "cordystackx"
   }
 }
