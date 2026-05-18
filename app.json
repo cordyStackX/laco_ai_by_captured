@@ -23,7 +23,8 @@
         "backgroundColor": "#FFFFFF"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.cordystackx.lacobycapture"
     },
     "web": {
       "output": "static",
@@ -37,7 +38,7 @@
           "image": "./assets/images/logo3.png",
           "imageWidth": 100,
           "resizeMode": "cover",
-          "backgroundColor": "transparent"
+          "backgroundColor": "#00000000"
         }
       ]
     ],
