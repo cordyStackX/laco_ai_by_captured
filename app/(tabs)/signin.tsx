@@ -5,8 +5,10 @@ import { Fetch_to } from "@/app/utilities";
 import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Image, Modal, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, Image, Modal, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Circle, Path, Rect, Svg } from "react-native-svg";
 import { WebView } from "react-native-webview";
+
 
 export default function Signin() {
   const router = useRouter();
@@ -20,6 +22,7 @@ export default function Signin() {
   const [registerUrl, setRegisterUrl] = useState("");
   const [webViewAuthToken, setWebViewAuthToken] = useState<string | null>(null);
   const [webViewNeedsAuth, setWebViewNeedsAuth] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     async function check() {
@@ -113,41 +116,64 @@ export default function Signin() {
     : { uri: registerUrl };
 
   return (
-    
     <View style={styles.container}>
       <View style={styles.logoContainer} >
         <Image source={IMAGES.logo} style={styles.logo} />
         <Text style={styles.logoText} >LACO by Captured</Text>
       </View>
       <View style={styles.inputWrapper}>
+        {/* Email Field with SVG Icon */}
+        <View style={styles.inputHolder}>
+          <Svg width={24} height={24} fill="none" stroke="#213b94" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={styles.inputIcon}>
+            <Rect x={3} y={5} width={18} height={14} rx={2} />
+            <Path d="M3 7l9 6 9-6" />
+          </Svg>
           <TextInput
-          style={[styles.input, status ? styles.Error : null]}
-          value={form.email}
-          onChangeText={(text) => {
-            setForm((prev) => ({ ...prev, email: text }));
-          }}
-          placeholder="Enter your email"
-          placeholderTextColor="#9aa0a6"
-          autoComplete="email"
+            style={[styles.input, status ? styles.Error : null, { flex: 1 }]}
+            value={form.email}
+            onChangeText={(text) => {
+              setForm((prev) => ({ ...prev, email: text }));
+            }}
+            placeholder="Enter your email"
+            placeholderTextColor="#9aa0a6"
+            autoComplete="email"
           />
+        </View>
+        {/* Password Field with SVG Icon and Show/Hide */}
+        <View style={styles.inputHolder}>
+          <Svg width={24} height={24} fill="none" stroke="#213b94" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={styles.inputIcon}>
+            <Rect x={5} y={11} width={14} height={10} rx={2} />
+            <Path d="M8 11V8a4 4 0 0 1 8 0v3" />
+            <Circle cx={12} cy={16} r={1} />
+            <Path d="M12 17v2" />
+          </Svg>
           <TextInput
-          style={[styles.input, status ? styles.Error : null]}
-          value={form.password}
-          onChangeText={(text) => {
-            setForm((prev) => ({ ...prev, password: text }));
-          }}
-          placeholder="Enter your password"
-          placeholderTextColor="#9aa0a6"
-          secureTextEntry={true}
-          autoComplete="password"
+            style={[styles.input, status ? styles.Error : null, { flex: 1 }]}
+            value={form.password}
+            onChangeText={(text) => {
+              setForm((prev) => ({ ...prev, password: text }));
+            }}
+            placeholder="Enter your password"
+            placeholderTextColor="#9aa0a6"
+            secureTextEntry={!showPassword}
+            autoComplete="password"
           />
+          <TouchableOpacity
+            onPress={() => setShowPassword((prev) => !prev)}
+            accessibilityRole="button"
+            accessibilityLabel={showPassword ? "Hide password" : "Show password"}
+            style={styles.passwordToggle}
+          >
+            <Text style={{ color: "#213b94", fontWeight: "600", marginLeft: 8 }}>
+              {showPassword ? "Hide" : "Show"}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
       {status ? (
         <Text style={styles.message} > {message} </Text>
       ) : null}
-      
       <View style={styles.buttonWrapper}>
-        
         <View style={styles.buttonContainer}>
           <Pressable
             style={({ pressed }) => [
@@ -165,7 +191,6 @@ export default function Signin() {
             )}
           </Pressable>
         </View>
-
       </View>
       <Pressable onPress={() => {
         setShowWebView(true);
@@ -204,20 +229,39 @@ export default function Signin() {
 }
 
 const styles = StyleSheet.create({
+  inputHolder: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "80%",
+    marginVertical: 5,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: "#213b94",
+    paddingHorizontal: 8,
+    paddingVertical: Platform.OS === "ios" ? 8 : 4,
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  passwordToggle: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
   },
   input: {
-    borderColor: "#213b94",
-    borderWidth: 2,
+    borderWidth: 0,
+    borderColor: "transparent",
     width: "80%",
-    margin: 10,
     borderRadius: 12,
     paddingHorizontal: 12,
     paddingVertical: Platform.OS === "ios" ? 12 : 10,
-    overflow: "hidden"
+    overflow: "hidden",
+    color: "#000"
   },
   logoContainer: {
     width: "100%",
@@ -297,7 +341,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   webViewHeader: {
-    paddingTop: Platform.OS === "ios" ? 56 : 16,
+    paddingTop: Platform.OS === "ios" ? 56 : 36,
     paddingHorizontal: 16,
     paddingBottom: 12,
     borderBottomWidth: 1,

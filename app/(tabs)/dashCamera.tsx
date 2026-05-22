@@ -354,16 +354,16 @@ const styles = StyleSheet.create({
     webViewContainer: {
         flex: 1,
         backgroundColor: "#fff"
-      },
-      webViewHeader: {
-        paddingTop: Platform.OS === "ios" ? 56 : 16,
+    },
+    webViewHeader: {
+        paddingTop: Platform.OS === "ios" ? 56 : 36,
         paddingHorizontal: 16,
         paddingBottom: 12,
         borderBottomWidth: 1,
         borderBottomColor: "#e5e5e5"
-      },
-      webViewClose: {
+    },
+    webViewClose: {
         color: "#213b94",
         fontWeight: "600"
-      }
+    }
 })
